@@ -29,9 +29,9 @@ export default function App() {
   }
 
   function getWeatherIcon(type){
-    if (type === 'sunny') return <Ionicons name="sunny-outline" size={fontSize.icon1} color="orange"/>
-    if (type === 'rainy') return <Ionicons name="rainy-outline" size={fontSize.icon1} color="blue"/>
-    if (type === 'cloudy') return <Ionicons name="cloudy-outline" size={fontSize.icon1} color="gray"/>
+    if (type === 'sunny') return <Ionicons name="sunny" size={fontSize.icon1} color="orange"/>
+    if (type === 'rainy') return <Ionicons name="rainy" size={fontSize.icon1} color="blue"/>
+    if (type === 'cloudy') return <Ionicons name="cloudy" size={fontSize.icon1} color="white"/>
   }
 
   return (
@@ -57,15 +57,25 @@ export default function App() {
 
               <View style={styles.weatherInfo}>
                 <Text style={styles.cityText}>{weather.city}</Text>
-                <Text style=></Text>
+                <Text style={styles.tempText}>{weather.temperature}°C</Text>
               </View>
+
+              <PrimaryButton onPress={() => handleDeleteWeather(weather.id)}>
+                <Ionicons name="trash" size={fontSize.icon3} color="red"/>
+              </PrimaryButton>
             </View>
           ))
         )}
       </ScrollView>
 
       <View>
-        {isModalOpen && <AddWeatherModal open={isModalOpen} onClose={handleCloseModal}/>}
+        {isModalOpen && (
+          <AddWeatherModal 
+          open={isModalOpen}
+          onClose={handleCloseModal}
+          onAddWeather={handleAddWeatherData}
+          />
+        )}
       </View>
     </View>
     </SafeAreaView>
@@ -73,4 +83,40 @@ export default function App() {
 }
 
 const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+  },
+  buttonContainer: {
+    marginTop: 20,
+  },
+  weatherListContainer: {
+    flex: 1,
+    padding: 20,
+  },
+  emptyText: {
+    textAlign: 'center',
+    fontSize: 18,
+    color: 'gray',
+    marginTop: 50,
+  },
+  weatherCard: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    backgroundColor: 'skyblue',
+    padding: 20,
+    marginBottom: 15,
+    borderRadius: 10,
+    gap: 15,
+  },
+  weatherInfo: {
+    flex: 1,
+  },
+  cityText: {
+    fontSize: 22,
+    fontWeight: 'bold',
+  },
+  tempText: {
+    fontSize: 18,
+    color: 'darkblue',
+  }
 });

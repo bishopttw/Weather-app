@@ -3,7 +3,7 @@ import { StyleSheet } from "react-native";
 
 export default function PrimaryButton({children, onPress, style}){
     return(
-        <Pressable android_ripple={{color: "yellow"}} style={styles.buttonContainer} onPress={onPress}>
+        <Pressable android_ripple={{color: "yellow"}} style={[styles.buttonContainer, style]} onPress={onPress}>
             {children}
         </Pressable>
     );

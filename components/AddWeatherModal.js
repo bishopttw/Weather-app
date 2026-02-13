@@ -4,7 +4,7 @@ import {Ionicons, FontAwesome} from "@expo/vector-icons"
 import { fontSize } from "../utils/fontSize";
 import { useState } from "react";
 
-export default function AddWeatherModal({open, onClose}){
+export default function AddWeatherModal({open, onClose, onAddWeather}){
     const [city, setCity] = useState('');
     const [temperature, setTemperature] = useState('');
     const [weatherType, setWeatherType] = useState('sunny');
@@ -38,45 +38,74 @@ export default function AddWeatherModal({open, onClose}){
 
                 <TextInput
                     style={styles.input}
-                    placeholder="Enter city name"
+                    placeholder="Enter city name (e.g, Lagos)"
                     value={city}
-                    OnChangeText={setCity}
+                    onChangeText={setCity}
+                    placeholderTextColor="gray"
                 />
 
                 <TextInput
                     style={styles.input}
                     placeholder="Temperature (e.g., 28)"
                     value={temperature}
-                    OnChangeText={setTemperature}
+                    onChangeText={setTemperature}
                     keyboardType="numeric"
+                    placeholderTextColor="gray"
                 />
 
                 <Text style={styles.label}>
                     Select Weather:
                 </Text>
-                <View style={styles.weatherButtons}>
+                <View style={styles.weatherButtonsRow}>
                     <PrimaryButton 
                         onPress={() => setWeatherType('sunny')}
-                        style={weatherType === 'sunny' ? styles.selected : null}
+                        style={[
+                            styles.weatherButton,
+                            weatherType === 'sunny' ? styles.selected : null
+                        ]}
                     >
-                        <Ionicons name="sunny-outline" size={fontSize.icon3}/>
-                        <Text>Sunny</Text>
+                        <Ionicons name="sunny" size={fontSize.icon2} color="orange"/>
+                        <Text style={[
+                            styles.buttonText,
+                            weatherType ===  'sunny' && {color: 'white'}
+                        ]}>
+                            Sunny
+                        </Text>
                     </PrimaryButton>
 
                     <PrimaryButton 
                         onPress={() => setWeatherType('rainy')}
-                        style={weatherType === 'rainy' ? styles.selected : null}
+                        style={[
+                            styles.weatherButton,
+                            weatherType === 'rainy' ? styles.selected : null
+                        ]}
                     >
-                        <Ionicons name="rainy-outline" size={fontSize.icon3}/>
-                        <Text>Rainy</Text>
+                        <Ionicons name="rainy" size={fontSize.icon2} color="darkblue"/>
+                        <Text style={[
+                            styles.buttonText,
+                            weatherType ===  'rainy' && {color: 'white'}
+                            ]}>
+                                Rainy
+                            </Text>
                     </PrimaryButton>
+                </View>
+
+                <View style={styles.weatherButtonsRow}>    
 
                     <PrimaryButton 
                         onPress={() => setWeatherType('cloudy')}
-                        style={weatherType === 'cloudy' ? styles.selected : null}
+                        style={[
+                            styles.weatherButton,
+                            weatherType === 'cloudy' ? styles.selected : null
+                        ]}
                     >
-                        <Ionicons name="cloudy-outline" size={fontSize.icon3}/>
-                        <Text>Cloudy</Text>
+                        <Ionicons name="cloudy" size={fontSize.icon2} color="white"/>
+                        <Text style={[
+                            styles.buttonText,
+                            weatherType ===  'cloudy' && {color: 'white'}
+                            ]}>
+                                Cloudy
+                            </Text>
                     </PrimaryButton>
                 </View>
 
@@ -117,13 +146,30 @@ const styles = StyleSheet.create({
         fontSize: 18,
         marginBottom: 10,
         fontWeight: 'bold',
+        textAlign: 'center',
     },
-    weatherButtons: {
+    weatherButtonsRow: {
         flexDirection: 'row',
-        gap: 10,
-        marginBottom: 20,
+        gap: 15,
+        marginBottom: 15,
+        justifyContent: 'center'
+    },
+    weatherButton: {
+        minWidth: 120,
+        margin: 5,
+        padding: 20,
+        borderRadius: 10,
+        backgroundColor: 'lightgray',
+        margin: 0,
     },
     selected: {
         backgroundColor: 'blue',
-    }
+        borderWidth: 3,
+        borderColor: 'yellow',
+    },
+    buttonText: {
+        fontSize: 16,
+        fontWeight: 'bold',
+        color: 'black',
+    },
 }) 

@@ -2,6 +2,7 @@ import { StatusBar } from 'expo-status-bar';
 import { ScrollView, StyleSheet, Text, View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import {Ionicons } from "@expo/vector-icons";
+import { Pressable } from "react-native";
 import { useState } from 'react';
 import AddWeatherModal from '../components/AddWeatherModal';
 import PrimaryButton from '../components/primaryButton';
@@ -58,6 +59,18 @@ export default function HomeScreen({navigation}) {
               <View style={styles.weatherInfo}>
                 <Text style={styles.cityText}>{weather.city}</Text>
                 <Text style={styles.tempText}>{weather.temperature}°C</Text>
+
+                <Pressable
+                  onPress={() => navigation.navigate('WeatherForecast', {
+                    city: weather.city,
+                    weatherType: weather.weatherType,
+                    temperature: weather.temperature
+                  })}
+                  style={styles.forecastButton}
+                >
+                  <Text style={styles.forecastText}>See Forecast</Text>
+                  <Ionicons name="arrow-forward" size={fontSize.icon3} color="white"/>
+                </Pressable>
               </View>
 
               <PrimaryButton onPress={() => handleDeleteWeather(weather.id)}>
@@ -118,5 +131,24 @@ const styles = StyleSheet.create({
   tempText: {
     fontSize: 18,
     color: 'darkblue',
+  },
+  forecastButton: {
+    backgroundColor: 'darkblue',
+    padding: 15,
+    paddingHorizontal: 20,
+    marginTop: 30,
+    marginLeft: -17,
+    borderRadius: 6,
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'center',
+    gap: 8,
+    minWidth: 160,
+  },
+  forecastText:{
+    color: 'white',
+    fontSize: 14,
+    fontWeight: 'bold',
+    textAlign: 'center',
   }
 });
